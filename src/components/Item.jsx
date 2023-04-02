@@ -90,7 +90,7 @@ const Item = ({ item, width }) => {
 
             <Box mt="3px">
                 {category && (
-                    <Typography variant="subtitle2" color={shades.neutral.dark}>
+                    <Typography variant="subtitle2" color={neutral.dark}>
                         {category
                             .replace(/([A-Z])/g, " $1")
                             .replace(/^./, (str) => str.toUpperCase())}
