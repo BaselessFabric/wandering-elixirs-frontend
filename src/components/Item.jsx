@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { IconButton, Box, Typography, useTheme, Button } from "@mui/material";
+import { IconButton, Box, Typography, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../theme";
@@ -12,9 +12,9 @@ const Item = ({ item, width }) => {
     const dispatch = useDispatch();
     const [count, setCount] = useState(1);
     const [isHovered, setIsHovered] = useState(false);
-    const {
-        palette: { neutral },
-    } = useTheme();
+    // const {
+    //     palette: { neutral },
+    // } = useTheme();
     const { category, price, name, image } = item.attributes;
     const {
         data: {
@@ -90,7 +90,7 @@ const Item = ({ item, width }) => {
 
             <Box mt="3px">
                 {category && (
-                    <Typography variant="subtitle2" color={neutral.dark}>
+                    <Typography variant="subtitle2" color={shades.neutral.dark}>
                         {category
                             .replace(/([A-Z])/g, " $1")
                             .replace(/^./, (str) => str.toUpperCase())}
