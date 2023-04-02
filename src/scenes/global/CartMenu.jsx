@@ -71,7 +71,7 @@ const CartMenu = () => {
                                             alt={item?.name}
                                             width="123px"
                                             height="164px"
-                                            src={`${process.env.REACT_APP_API_URL}:1337${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+                                            src={`${process.env.REACT_APP_API_URL}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
                                         />
                                     </Box>
                                     <Box flex="1 1 60%">

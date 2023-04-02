@@ -23,7 +23,7 @@ const ItemDetails = () => {
 
     async function getItem() {
         const item = await fetch(
-            `${process.env.REACT_APP_API_URL}:1337/api/items/${itemId}?populate=image`,
+            `${process.env.REACT_APP_API_URL}/api/items/${itemId}?populate=image`,
             { method: "GET" }
         );
         const itemJson = await item.json();
@@ -32,7 +32,7 @@ const ItemDetails = () => {
 
     async function getItems() {
         const items = await fetch(
-            `${process.env.REACT_APP_API_URL}:1337/api/items?populate=image`,
+            `${process.env.REACT_APP_API_URL}/api/items?populate=image`,
             { method: "GET" }
         );
         const itemsJson = await items.json();
@@ -53,7 +53,7 @@ const ItemDetails = () => {
                         alt={item?.name}
                         width="100%"
                         height="100%"
-                        src={`${process.env.REACT_APP_API_URL}:1337${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+                        src={`${process.env.REACT_APP_API_URL}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
                         style={{ objectFit: "contain" }}
                     />
                 </Box>

@@ -17,7 +17,7 @@ const ShoppingList = () => {
 
     async function getItems() {
         const items = await fetch(
-            `${process.env.REACT_APP_API_URL}:1337/api/items?populate=image`,
+            `${process.env.REACT_APP_API_URL}/api/items?populate=image`,
             { method: "GET" }
         );
         const itemsJson = await items.json();
