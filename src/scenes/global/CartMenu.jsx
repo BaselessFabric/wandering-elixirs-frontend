@@ -71,7 +71,11 @@ const CartMenu = () => {
                                             alt={item?.name}
                                             width="123px"
                                             height="164px"
-                                            src={`${process.env.REACT_APP_API_URL}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+                                            src={
+                                                item?.attributes?.image?.data
+                                                    ?.attributes?.formats
+                                                    ?.medium?.url
+                                            }
                                         />
                                     </Box>
                                     <Box flex="1 1 60%">
@@ -131,7 +135,7 @@ const CartMenu = () => {
                                             </Box>
                                             {/* PRICE */}
                                             <Typography fontWeight="bold ">
-                                                ${item.attributes.price}
+                                                £{item.attributes.price}
                                             </Typography>
                                         </FlexBox>
                                     </Box>

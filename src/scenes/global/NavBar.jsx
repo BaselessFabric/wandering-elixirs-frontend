@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Badge, Box, IconButton } from "@mui/material";
+import { Badge, Box, IconButton, useMediaQuery } from "@mui/material";
 import {
     // PersonOutline,
     ShoppingBagOutlined,
@@ -9,11 +9,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
+import logo from "../../images/logo2.png";
 
 const NavBar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.cart);
+    const isNonMobile = useMediaQuery("(min-width:600px)");
 
     return (
         <Box
@@ -41,8 +43,12 @@ const NavBar = () => {
                     color={shades.secondary[500]}
                 >
                     {/* WANDERING ELIXIRS */}
-                    {/* <img src={logo} alt="Wandering Elixirs Logo" /> */}
-                    Wandering
+                    <img
+                        src={logo}
+                        alt="Wandering Elixirs Logo"
+                        width={isNonMobile ? "400px" : "250px"}
+                    />
+                    {/* Wandering */}
                 </Box>
                 <Box
                     display="flex"

@@ -45,7 +45,7 @@ const Item = ({ item, width }) => {
                     alt={item.name}
                     width="300px"
                     height="400px"
-                    src={`${process.env.REACT_APP_API_URL}${url}`}
+                    src={url}
                     onClick={() => navigate(`/item/${item.id}`)}
                     style={{ cursor: "pointer" }}
                 />

@@ -27,14 +27,14 @@ const ShoppingList = () => {
         getItems();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const topRatedItems = items.filter(
-        (item) => item.attributes.category === "topRated"
+    const mushroomExtractsItems = items.filter(
+        (item) => item.attributes.category === "mushroomExtracts"
     );
-    const newArrivalsItems = items.filter(
-        (item) => item.attributes.category === "newArrivals"
+    const seasonalSpecialsItems = items.filter(
+        (item) => item.attributes.category === "seasonalSpecials"
     );
-    const bestSellersItems = items.filter(
-        (item) => item.attributes.category === "bestSellers"
+    const lotionsnPotionsItems = items.filter(
+        (item) => item.attributes.category === "lotionsnPotions"
     );
 
     return (
@@ -58,9 +58,9 @@ const ShoppingList = () => {
                     }}
                 >
                     <Tab label="ALL" value="all" />
-                    <Tab label="NEW ARRIVALS" value="newArrivals" />
-                    <Tab label="BEST SELLERS" value="bestSellers" />
-                    <Tab label="TOP RATED" value="topRated" />
+                    <Tab label="SEASONAL SPECIALS" value="seasonalSpecials" />
+                    <Tab label="LOTIONS & POTIONS" value="lotionsnPotions" />
+                    <Tab label="MUSHROOM EXTRACTS" value="mushroomExtracts" />
                 </Tabs>
                 <Box
                     margin="0 auto"
@@ -74,16 +74,16 @@ const ShoppingList = () => {
                         items.map((item) => (
                             <Item item={item} key={`${item.name}-${item.id}`} />
                         ))}
-                    {value === "newArrivals" &&
-                        newArrivalsItems.map((item) => (
+                    {value === "lotionsnPotions" &&
+                        seasonalSpecialsItems.map((item) => (
                             <Item item={item} key={`${item.name}-${item.id}`} />
                         ))}
-                    {value === "bestSellers" &&
-                        bestSellersItems.map((item) => (
+                    {value === "seasonalSpecials" &&
+                        lotionsnPotionsItems.map((item) => (
                             <Item item={item} key={`${item.name}-${item.id}`} />
                         ))}
-                    {value === "topRated" &&
-                        topRatedItems.map((item) => (
+                    {value === "mushroomExtracts" &&
+                        mushroomExtractsItems.map((item) => (
                             <Item item={item} key={`${item.name}-${item.id}`} />
                         ))}
                 </Box>

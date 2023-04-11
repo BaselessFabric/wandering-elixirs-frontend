@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { IconButton, Box, Typography, Button, Tabs, Tab } from "@mui/material";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+// import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { shades } from "../../theme";
@@ -54,8 +54,8 @@ const ItemDetails = () => {
         isInStock = false;
     }
 
-    console.log("stockLevel: ", item?.attributes?.stockLevel);
-    console.log("isInStock: ", isInStock);
+    // console.log("stockLevel: ", item?.attributes?.stockLevel);
+    // console.log("isInStock: ", isInStock);
 
     return (
         <Box width="80%" m="80px auto">
@@ -66,17 +66,20 @@ const ItemDetails = () => {
                         alt={item?.name}
                         width="100%"
                         height="100%"
-                        src={`${process.env.REACT_APP_API_URL}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+                        src={
+                            item?.attributes?.image?.data?.attributes?.formats
+                                ?.medium?.url
+                        }
                         style={{ objectFit: "contain" }}
                     />
                 </Box>
 
                 {/* ACTIONS */}
                 <Box flex="1 1 50%" mb="40px">
-                    <Box display="flex" justifyContent="space-between">
+                    {/* <Box display="flex" justifyContent="space-between">
                         <Box>Home/Item</Box>
                         <Box>Prev Next</Box>
-                    </Box>
+                    </Box> */}
 
                     <Box m="65px 0 25px 0">
                         <Typography variant="h3">
@@ -139,13 +142,13 @@ const ItemDetails = () => {
                     </Box>
 
                     <Box>
-                        <Box m="20px 0 5px 0" display="flex">
+                        {/* <Box m="20px 0 5px 0" display="flex">
                             <FavoriteBorderOutlinedIcon />
 
                             <Typography sx={{ ml: "5px" }}>
                                 ADD TO WISHLIST
                             </Typography>
-                        </Box>
+                        </Box> */}
                         <Typography>
                             Amount Left In Stock: {item?.attributes?.stockLevel}
                         </Typography>
@@ -160,7 +163,7 @@ const ItemDetails = () => {
             <Box m="20px 0">
                 <Tabs value={value} onChange={handleChange}>
                     <Tab label="DESCRIPTION" value="description" />
-                    <Tab label="REVIEWS" value="reviews" />
+                    {/* <Tab label="REVIEWS" value="reviews" /> */}
                 </Tabs>
             </Box>
             <Box display="flex" flexWrap="wrap" gap="15px">
