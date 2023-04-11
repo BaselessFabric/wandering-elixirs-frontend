@@ -40,7 +40,9 @@ const NavBar = () => {
                     sx={{ "&:hover": { cursor: "pointer" } }}
                     color={shades.secondary[500]}
                 >
-                    WANDERING ELIXIRS
+                    {/* WANDERING ELIXIRS */}
+                    {/* <img src={logo} alt="Wandering Elixirs Logo" /> */}
+                    Wandering
                 </Box>
                 <Box
                     display="flex"
@@ -48,12 +50,12 @@ const NavBar = () => {
                     columnGap="20px"
                     zIndex="2"
                 >
-                    <IconButton sx={{ color: "black" }}>
+                    {/* <IconButton sx={{ color: "black" }}>
                         <SearchOutlined />
                     </IconButton>
                     <IconButton sx={{ color: "black" }}>
                         <PersonOutline />
-                    </IconButton>
+                    </IconButton> */}
 
                     <Badge
                         badgeContent={cart.length}
@@ -76,9 +78,9 @@ const NavBar = () => {
                             <ShoppingBagOutlined />
                         </IconButton>
                     </Badge>
-                    <IconButton sx={{ color: "black" }}>
+                    {/* <IconButton sx={{ color: "black" }}>
                         <MenuOutlined />
-                    </IconButton>
+                    </IconButton> */}
                 </Box>
             </Box>
         </Box>

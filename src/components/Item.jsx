@@ -15,7 +15,7 @@ const Item = ({ item, width }) => {
     // const {
     //     palette: { neutral },
     // } = useTheme();
-    const { category, price, name, image } = item.attributes;
+    const { category, price, name, image, stockLevel } = item.attributes;
     const {
         data: {
             attributes: {
@@ -25,6 +25,14 @@ const Item = ({ item, width }) => {
             },
         },
     } = image;
+
+    let isInStock;
+
+    if (stockLevel > 0) {
+        isInStock = true;
+    } else {
+        isInStock = false;
+    }
 
     return (
         <Box width={width}>
@@ -52,7 +60,7 @@ const Item = ({ item, width }) => {
                     <Box display="flex" justifyContent="space-between">
                         {/* AMOUNT */}
                         <Box
-                            display="flex"
+                            style={{ display: isInStock ? "flex" : "none" }}
                             alignItems="center"
                             backgroundColor={shades.neutral[100]}
                             borderRadius="3px"
@@ -72,6 +80,7 @@ const Item = ({ item, width }) => {
 
                         {/* BUTTON */}
                         <Button
+                            style={{ display: isInStock ? "" : "none" }}
                             onClick={() => {
                                 dispatch(
                                     addToCart({ item: { ...item, count } })
@@ -83,6 +92,15 @@ const Item = ({ item, width }) => {
                             }}
                         >
                             Add to Cart
+                        </Button>
+                        <Button
+                            style={{ display: !isInStock ? "" : "none" }}
+                            sx={{
+                                backgroundColor: shades.primary[300],
+                                color: "white",
+                            }}
+                        >
+                            Out of Stock
                         </Button>
                     </Box>
                 </Box>

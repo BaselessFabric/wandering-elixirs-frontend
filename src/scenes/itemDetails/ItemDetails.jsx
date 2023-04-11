@@ -30,6 +30,8 @@ const ItemDetails = () => {
         setItem(itemJson.data);
     }
 
+    // console.log("ItemID: ", itemId);
+
     async function getItems() {
         const items = await fetch(
             `${process.env.REACT_APP_API_URL}/api/items?populate=image`,
@@ -43,6 +45,17 @@ const ItemDetails = () => {
         getItem();
         getItems();
     }, [itemId]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    let isInStock;
+
+    if (item?.attributes?.stockLevel > 0) {
+        isInStock = true;
+    } else {
+        isInStock = false;
+    }
+
+    console.log("stockLevel: ", item?.attributes?.stockLevel);
+    console.log("isInStock: ", isInStock);
 
     return (
         <Box width="80%" m="80px auto">
@@ -78,7 +91,7 @@ const ItemDetails = () => {
                     {/* COUNT AND BUTTON */}
                     <Box display="flex" alignItems="centre" minHeight="50px">
                         <Box
-                            display="flex"
+                            style={{ display: isInStock ? "flex" : "none" }}
                             alignItems="center"
                             border={`1.5px solid ${shades.neutral[300]}`}
                             mr="20px"
@@ -95,6 +108,7 @@ const ItemDetails = () => {
                             </IconButton>
                         </Box>
                         <Button
+                            style={{ display: isInStock ? "block" : "none" }}
                             sx={{
                                 backgroundColor: "#222222",
                                 color: "white",
@@ -110,15 +124,31 @@ const ItemDetails = () => {
                         >
                             ADD TO CART
                         </Button>
+                        <Box
+                            style={{ display: !isInStock ? "block" : "none" }}
+                            sx={{
+                                backgroundColor: "#222222",
+                                color: "white",
+                                borderRadius: 0,
+                                minWidth: "150px",
+                                padding: "10px 40px",
+                            }}
+                        >
+                            OUT OF STOCK
+                        </Box>
                     </Box>
 
                     <Box>
                         <Box m="20px 0 5px 0" display="flex">
                             <FavoriteBorderOutlinedIcon />
+
                             <Typography sx={{ ml: "5px" }}>
                                 ADD TO WISHLIST
                             </Typography>
                         </Box>
+                        <Typography>
+                            Amount Left In Stock: {item?.attributes?.stockLevel}
+                        </Typography>
                         <Typography>
                             CATEGORIES: {item?.attributes?.category}
                         </Typography>
