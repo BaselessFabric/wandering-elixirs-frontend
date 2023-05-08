@@ -116,7 +116,16 @@ const ItemDetails = () => {
                                 <RemoveIcon />
                             </IconButton>
                             <Typography sx={{ p: "0 5px" }}>{count}</Typography>
-                            <IconButton onClick={() => setCount(count + 1)}>
+                            <IconButton
+                                onClick={() =>
+                                    setCount(
+                                        Math.min(
+                                            count + 1,
+                                            item?.attributes?.stockLevel
+                                        )
+                                    )
+                                }
+                            >
                                 <AddIcon />
                             </IconButton>
                         </Box>
@@ -162,18 +171,18 @@ const ItemDetails = () => {
                         <Typography>
                             Amount Left In Stock: {item?.attributes?.stockLevel}
                         </Typography>
-                        <Typography>
+                        {/* <Typography>
                             CATEGORIES: {item?.attributes?.category}
-                        </Typography>
+                        </Typography> */}
                     </Box>
                 </Box>
             </Box>
 
             {/* INFORMATION */}
-            <Box m="20px 0">
+            {/* <Box m="20px 0">
                 <Tabs value={value} onChange={handleChange}>
                     <Tab label="DESCRIPTION" value="description" />
-                    {/* <Tab label="REVIEWS" value="reviews" /> */}
+                    <Tab label="REVIEWS" value="reviews" />
                 </Tabs>
             </Box>
             <Box display="flex" flexWrap="wrap" gap="15px">
@@ -181,7 +190,7 @@ const ItemDetails = () => {
                     <div>{item?.attributes?.longDescription}</div>
                 )}
                 {value === "reviews" && <div>reviews</div>}
-            </Box>
+            </Box> */}
 
             {/* RELATED ITEMS */}
             <Box mt="50px" width="100%">
