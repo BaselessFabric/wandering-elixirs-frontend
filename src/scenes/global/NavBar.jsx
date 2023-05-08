@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
-import logo from "../../images/logo2.png";
+import logo from "../../images/logo3.png";
 
 const NavBar = () => {
     const navigate = useNavigate();

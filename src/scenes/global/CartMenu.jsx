@@ -11,7 +11,8 @@ import {
     removeFromCart,
     setIsCartOpen,
 } from "../../state";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
 
 const FlexBox = styled(Box)`
     display: flex;
@@ -19,11 +20,38 @@ const FlexBox = styled(Box)`
     align-items: center;
 `;
 
+const stripePromise = loadStripe(
+    "pk_test_51MrQRHKzKPb7wLmLZOzsVcuRI9s3R13RaTtyzLhlkFocuqQqysZTuriaIxIQOkKT3jBTpNuYc6xeUWuu2QZ8S36100OfhZAujo"
+);
+
 const CartMenu = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.cart);
     const isCartOpen = useSelector((state) => state.cart.isCartOpen);
+
+    async function makePayment() {
+        const stripe = await stripePromise;
+        const requestBody = {
+            products: cart.map(({ id, count }) => ({
+                id,
+                count,
+            })),
+        };
+
+        const response = await fetch(
+            `${process.env.REACT_APP_API_URL}/api/orders`,
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestBody),
+            }
+        );
+        const session = await response.json();
+        await stripe.redirectToCheckout({
+            sessionId: session.id,
+        });
+    }
 
     const totalPrice = cart.reduce((total, item) => {
         return total + item.count * item.attributes.price;
@@ -163,7 +191,8 @@ const CartMenu = () => {
                                 margin: "20px 0",
                             }}
                             onClick={() => {
-                                navigate("/checkout");
+                                // navigate("/checkout");
+                                makePayment();
                                 dispatch(setIsCartOpen());
                             }}
                         >

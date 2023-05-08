@@ -8,6 +8,11 @@ import { shades } from "../../theme";
 import { addToCart } from "../../state";
 import { useParams } from "react-router-dom";
 import Item from "../../components/Item";
+import DOMPurify from "dompurify";
+
+function sanitizeHtml(html) {
+    return DOMPurify.sanitize(html);
+}
 
 const ItemDetails = () => {
     const dispatch = useDispatch();
@@ -86,9 +91,14 @@ const ItemDetails = () => {
                             {item?.attributes?.name}
                         </Typography>
                         <Typography>£{item?.attributes?.price}</Typography>
-                        <Typography sx={{ mt: "20px" }}>
-                            {item?.attributes?.longDescription}
-                        </Typography>
+                        <Typography
+                            sx={{ mt: "20px" }}
+                            dangerouslySetInnerHTML={{
+                                __html: sanitizeHtml(
+                                    item?.attributes?.longDescription
+                                ),
+                            }}
+                        ></Typography>
                     </Box>
 
                     {/* COUNT AND BUTTON */}

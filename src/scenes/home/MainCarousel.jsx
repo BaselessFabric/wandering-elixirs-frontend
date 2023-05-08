@@ -1,9 +1,10 @@
-import { Box, Typography, IconButton, useMediaQuery } from "@mui/material";
+import { Box, IconButton, useMediaQuery } from "@mui/material";
+// import { Typography } from "@mui/material";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { shades } from "../../theme";
+// import { shades } from "../../theme";
 
 // imports all images from assets folder
 const importAll = (r) => {
@@ -63,14 +64,18 @@ const MainCarousel = () => {
                     <img
                         src={texture}
                         alt={`carousel-${index}`}
+                        height={
+                            isNonMobile
+                                ? (window.innerHeight / 4) * 3
+                                : (window.innerHeight / 3) * 2
+                        }
                         style={{
                             width: "100%",
-                            height: "700px",
                             objectFit: "cover",
                             backgroundAttachment: "fixed",
                         }}
                     />
-                    <Box
+                    {/* <Box
                         color="white"
                         padding="20px"
                         borderRadius="1px"
@@ -87,14 +92,14 @@ const MainCarousel = () => {
                             -- NEW ITEMS
                         </Typography>
                         <Typography variant="h1">Mushroom Extracts</Typography>
-                        {/* <Typography
+                        <Typography
                             fontWeight="bold"
                             color={shades.secondary[300]}
                             sx={{ textDecoration: "underline" }}
                         >
                             Discover More
-                        </Typography> */}
-                    </Box>
+                        </Typography>
+                    </Box> */}
                 </Box>
             ))}
         </Carousel>

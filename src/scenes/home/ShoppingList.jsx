@@ -40,7 +40,9 @@ const ShoppingList = () => {
     return (
         <Box width="80%" margin="80px auto">
             <Typography variant="h3" textAlign="centre">
-                Our Featured <b>products</b>
+                <Typography variant="h3" textAlign="centre" margin="0% 31%">
+                    Join The Fungal <b>REVOLUTION!</b>
+                </Typography>
                 <Tabs
                     textColor="primary"
                     indicatorColor="primary"
