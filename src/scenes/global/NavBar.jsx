@@ -58,8 +58,11 @@ const NavBar = () => {
                 >
                     {/* <IconButton sx={{ color: "black" }}>
                         <SearchOutlined />
-                    </IconButton>
-                    <IconButton sx={{ color: "black" }}>
+    </IconButton> */}
+                    {/* <IconButton
+                        onClick={() => navigate("/bio")}
+                        sx={{ color: "black" }}
+                    >
                         <PersonOutline />
                     </IconButton> */}
 
