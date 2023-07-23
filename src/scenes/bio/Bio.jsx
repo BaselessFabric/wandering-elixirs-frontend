@@ -18,21 +18,7 @@ const Bio = () => {
                             style={{ width: "100%", borderRadius: "10px" }}
                         />
                     </Grid>
-                    <Grid item xs={12} md={4}>
-                        <img
-                            src={foodImage1}
-                            alt="Food"
-                            style={{ width: "100%", borderRadius: "10px" }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                        <img
-                            src={foodImage2}
-                            alt="Food"
-                            style={{ width: "100%", borderRadius: "10px" }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={8}>
                         <Paper
                             elevation={0}
                             sx={{ padding: "30px", borderRadius: "10px" }}
@@ -45,22 +31,6 @@ const Bio = () => {
                                 in some of the finest restaurants in the world.
                                 She is passionate about creating dishes that are
                                 not only delicious but also visually stunning.
-                            </Typography>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Paper
-                            elevation={0}
-                            sx={{ padding: "30px", borderRadius: "10px" }}
-                        >
-                            <Typography variant="h4" mb={2}>
-                                Our Philosophy
-                            </Typography>
-                            <Typography>
-                                We believe that food should not only taste
-                                great, but it should also look great. Our chefs
-                                are trained to create visually stunning dishes
-                                that will leave you wanting more.
                             </Typography>
                         </Paper>
                     </Grid>

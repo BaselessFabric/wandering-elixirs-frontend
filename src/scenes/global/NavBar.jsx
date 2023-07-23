@@ -1,11 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Badge, Box, IconButton, useMediaQuery } from "@mui/material";
+import {
+    Badge,
+    Box,
+    IconButton,
+    Typography,
+    useMediaQuery,
+} from "@mui/material";
 import {
     // PersonOutline,
     ShoppingBagOutlined,
     // MenuOutlined,
     // SearchOutlined,
 } from "@mui/icons-material";
+import InfoIcon from "@mui/icons-material/Info";
 import { useNavigate } from "react-router-dom";
 import { shades } from "../../theme";
 import { setIsCartOpen } from "../../state";
@@ -23,7 +30,7 @@ const NavBar = () => {
             alignItems="center"
             width="100%"
             height="60px"
-            backgroundColor="rgba(255, 255, 255, 0.95)"
+            backgroundColor="rgba(255, 255, 255, 0.90)"
             color="black"
             position="fixed"
             top="0"
@@ -53,6 +60,7 @@ const NavBar = () => {
                 <Box
                     display="flex"
                     justifyContent="space-between"
+                    alignItems="center"
                     columnGap="20px"
                     zIndex="2"
                 >
@@ -65,7 +73,28 @@ const NavBar = () => {
                     >
                         <PersonOutline />
                     </IconButton> */}
+                    {/* <IconButton sx={{ color: "black" }}>
+                        <InfoIcon />
+                    </IconButton> */}
+                    <Typography
+                        onClick={() => navigate("/bio")}
+                        style={{ cursor: "pointer" }}
+                    >
+                        About Me
+                    </Typography>
+                    <Typography
+                        onClick={() => navigate("/otherprojects")}
+                        style={{ cursor: "pointer" }}
+                    >
+                        Other Projects
+                    </Typography>
 
+                    <IconButton
+                        onClick={() => navigate("/delivery")}
+                        sx={{ color: "black" }}
+                    >
+                        <InfoIcon />
+                    </IconButton>
                     <Badge
                         badgeContent={cart.length}
                         color="secondary"
