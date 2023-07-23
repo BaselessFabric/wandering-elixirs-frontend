@@ -1,7 +1,7 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
-import chefImage from "../../assets/a.jpeg";
-import foodImage1 from "../../assets/b.jpg";
-import foodImage2 from "../../assets/a.jpeg";
+import { Box, Paper, Typography } from "@mui/material";
+// import chefImage from "../../assets/a.jpeg";
+// import foodImage1 from "../../assets/b.jpg";
+// import foodImage2 from "../../assets/a.jpeg";
 
 const Bio = () => {
     return (

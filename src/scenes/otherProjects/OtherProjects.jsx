@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Typography, Modal } from "@mui/material";
+import { Box, Grid, Typography, Modal } from "@mui/material";
 import { useState } from "react";
 import chefImage from "../../assets/a.jpeg";
 import foodImage1 from "../../assets/b.jpg";
