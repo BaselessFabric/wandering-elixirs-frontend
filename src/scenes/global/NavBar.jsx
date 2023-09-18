@@ -38,7 +38,7 @@ const NavBar = () => {
             zIndex="1"
         >
             <Box
-                width="80%"
+                width={isNonMobile ? "80%" : "100%"}
                 margin="auto"
                 display="flex"
                 justifyContent="space-between"
@@ -48,12 +48,13 @@ const NavBar = () => {
                     onClick={() => navigate("/")}
                     sx={{ "&:hover": { cursor: "pointer" } }}
                     color={shades.secondary[500]}
+                    margin-right="0px"
                 >
                     {/* WANDERING ELIXIRS */}
                     <img
                         src={logo}
                         alt="Wandering Elixirs Logo"
-                        width={isNonMobile ? "400px" : "250px"}
+                        width={isNonMobile ? "400px" : "220px"}
                     />
                     {/* Wandering */}
                 </Box>
@@ -61,7 +62,7 @@ const NavBar = () => {
                     display="flex"
                     justifyContent="space-between"
                     alignItems="center"
-                    columnGap="20px"
+                    columnGap={isNonMobile ? "20px" : "0px"}
                     zIndex="2"
                 >
                     {/* <IconButton sx={{ color: "black" }}>
@@ -79,12 +80,14 @@ const NavBar = () => {
                     <Typography
                         onClick={() => navigate("/bio")}
                         style={{ cursor: "pointer" }}
+                        textAlign="center"
                     >
                         About Me
                     </Typography>
                     <Typography
                         onClick={() => navigate("/otherprojects")}
                         style={{ cursor: "pointer" }}
+                        textAlign="center"
                     >
                         Other Projects
                     </Typography>

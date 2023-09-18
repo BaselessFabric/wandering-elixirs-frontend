@@ -39,8 +39,13 @@ const ShoppingList = () => {
 
     return (
         <Box width="80%" margin="80px auto" textAlign="center">
+            {/* <Typography variant="h3" margin="0% 31%">
+                I am currently away at Bimble Festival, any purchases made will
+                be processed on
+            </Typography> */}
+
             <Typography variant="h3" margin="0% 31%">
-                Join The Fungal <b>REVOLUTION!</b>
+                Join The Fungal REVOLUTION!
             </Typography>
             <Tabs
                 textColor="primary"

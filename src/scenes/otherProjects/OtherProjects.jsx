@@ -2,11 +2,80 @@ import { Box, Grid, Typography, Modal } from "@mui/material";
 import { useState } from "react";
 import chefImage from "../../assets/a.jpeg";
 import foodImage1 from "../../assets/b.jpg";
-import foodImage2 from "../../assets/a.jpeg";
+// import foodImage2 from "../../assets/a.jpeg";
+
+// Create a new component for displaying each project
+const Project = ({ project, openLightbox }) => {
+    const { image, title, description } = project;
+
+    return (
+        <Grid item xs={12} md={4}>
+            <img
+                src={image}
+                alt={title}
+                style={{
+                    width: "100%",
+                    borderRadius: "10px",
+                    cursor: "pointer",
+                }}
+                onClick={() => openLightbox(image)}
+            />
+            <Typography variant="h4" align="center" mt={2}>
+                {title}
+            </Typography>
+            <Typography align="center">{description}</Typography>
+        </Grid>
+    );
+};
 
 const OtherProjects = () => {
     const [selectedImage, setSelectedImage] = useState(null);
-    const images = [chefImage, foodImage1, foodImage2];
+    const projects = [
+        {
+            image: chefImage,
+            title: "Field Mycology – Fungal biodiversity Surveys",
+            description:
+                "Please get in touch if you would like to talk about having a Fungal Diversity survey on your land. Knowing what fungi are growing on your land and how they are interacting with the trees and plants you work or live with is key to growing biodiversity and understanding the potential threats and allies to your growing projects. Be part of helping understand the UK’s fungal networks and learn about the networks beneath your feet. Contribute to important citizen science and become acquainted with your local fungal friends.",
+        },
+        {
+            image: foodImage1,
+            title: "Workshops and Talks",
+            description: (
+                <>
+                    "I offer workshops at events and nature centres in the UK.
+                    Please get in touch if you’d be interested in hosting or
+                    collaborating with one of the following workshops or talks.
+                    <br />
+                    <br /> Healing Fungi – A comprehensive introduction to
+                    medicinal mushrooms native to the UK, and how to identify,
+                    process and produce a healing elixir with them. Attendees of
+                    this workshop will learn how to make a dual extraction and
+                    take a bottle home. All participants must be over the age of
+                    16 unless accompanied by an adult <br />
+                    <br /> Meeting Mushrooms – A interactive sensory talk with
+                    fresh and dried mushrooms specimens that hold potent
+                    knowledge and stories. Learning to identify and notice the
+                    smaller aspects and unseen clues the forest provides.
+                    Includes; understanding identification, honouring the fungal
+                    landscape, ethical harvesting, lifecycle and wider
+                    ecological impacts of fungi. <br /> <br /> Myco-Immersive
+                    foray – A foray with a difference. Includes a planned 1.5
+                    hour walk to look at the native fungal species, collect
+                    potentially edible species to sample, and learn the key
+                    factors to identification, harvesting, and intentional
+                    journeying in the forest. Includes chai and cake in the
+                    break! All participants must be over the age of 16 unless
+                    accompanied by an adult."
+                </>
+            ),
+        },
+        // {
+        //     image: foodImage2,
+        //     title: "Tasty Treat",
+        //     description:
+        //         "Indulge in the flavors of this amazing dish prepared with love and care by our talented chefs.",
+        // },
+    ];
 
     const openLightbox = (image) => {
         setSelectedImage(image);
@@ -23,27 +92,12 @@ const OtherProjects = () => {
                     Other Projects by Rosy
                 </Typography>
                 <Grid container spacing={3}>
-                    {images.map((image, index) => (
-                        <Grid item xs={12} md={4} key={index}>
-                            <img
-                                src={image}
-                                alt={`Project ${index + 1}`}
-                                style={{
-                                    width: "100%",
-                                    borderRadius: "10px",
-                                    cursor: "pointer",
-                                }}
-                                onClick={() => openLightbox(image)}
-                            />
-                            <Typography variant="h4" align="center" mt={2}>
-                                Dish Example {index + 1}
-                            </Typography>
-                            <Typography align="center">
-                                This is a sample dish created by Executive Chef
-                                Jane Doe. It showcases her culinary expertise
-                                and attention to detail.
-                            </Typography>
-                        </Grid>
+                    {projects.map((project, index) => (
+                        <Project
+                            key={index}
+                            project={project}
+                            openLightbox={openLightbox}
+                        />
                     ))}
                 </Grid>
             </Box>
