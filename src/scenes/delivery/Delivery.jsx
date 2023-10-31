@@ -15,13 +15,13 @@ const Bio = () => {
                     sx={{ padding: "30px", borderRadius: "10px" }}
                 >
                     <Typography variant="h4" mb={2} align="center">
-                        Executive Chef, Jane Doe
+                        {/* Executive Chef, Jane Doe */}
                     </Typography>
                     <Typography>
-                        Jane Doe is an experienced chef, having worked in some
+                        {/* Jane Doe is an experienced chef, having worked in some
                         of the finest restaurants in the world. She is
                         passionate about creating dishes that are not only
-                        delicious but also visually stunning.
+                        delicious but also visually stunning. */}
                     </Typography>
                 </Paper>
             </Box>
