@@ -9,6 +9,7 @@ import ItemDetails from "./scenes/itemDetails/ItemDetails";
 import Bio from "./scenes/bio/Bio";
 import Delivery from "./scenes/delivery/Delivery";
 import OtherProjects from "./scenes/otherProjects/OtherProjects";
+import Footer from "./scenes/global/Footer";
 
 const ScrollToTop = () => {
     const { pathname } = useLocation();
@@ -36,6 +37,7 @@ function App() {
                     <Route path="/otherprojects" element={<OtherProjects />} />
                 </Routes>
                 <CartMenu />
+                <Footer />
             </BrowserRouter>
         </div>
     );
