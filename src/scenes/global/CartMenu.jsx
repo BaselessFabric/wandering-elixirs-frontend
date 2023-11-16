@@ -21,7 +21,7 @@ const FlexBox = styled(Box)`
 `;
 
 const stripePromise = loadStripe(
-    "pk_test_51MrQRHKzKPb7wLmLZOzsVcuRI9s3R13RaTtyzLhlkFocuqQqysZTuriaIxIQOkKT3jBTpNuYc6xeUWuu2QZ8S36100OfhZAujo"
+    "pk_live_51MrQRHKzKPb7wLmLJVz21u5NeEIDBvw0UyuCsl6hIOWAJeB0teoHfBPZIbnj7nlugmRJqGWYfXOShF6VxhnwaUuF009anJYUMM"
 );
 
 const CartMenu = () => {
