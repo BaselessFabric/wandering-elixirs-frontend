@@ -1,5 +1,5 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
-import chefImage from "../../assets/a.jpeg";
+import chefImage from "../../assets/profile.jpg";
 // import foodImage1 from "../../assets/b.jpg";
 // import foodImage2 from "../../assets/a.jpeg";
 
@@ -12,11 +12,32 @@ const Bio = () => {
                 </Typography>
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={4}>
-                        <img
-                            src={chefImage}
-                            alt="Chef"
-                            style={{ width: "100%", borderRadius: "10px" }}
-                        />
+                        <Grid container>
+                            <img
+                                src={chefImage}
+                                alt="Chef"
+                                style={{ width: "100%", borderRadius: "10px" }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Box
+                                sx={{
+                                    padding: "30px",
+                                    borderRadius: "10px",
+                                    display: "flex",
+                                }}
+                            >
+                                <Typography textAlign="center">
+                                    Contact me at:
+                                    <a
+                                        href="mailto:Rosy@WanderingElixirs.com"
+                                        style={{ textDecoration: "none" }}
+                                    >
+                                        Rosy@WanderingElixirs.com
+                                    </a>
+                                </Typography>
+                            </Box>
+                        </Grid>
                     </Grid>
                     <Grid item xs={12} md={8}>
                         <Paper

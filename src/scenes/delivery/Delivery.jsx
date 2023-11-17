@@ -8,25 +8,6 @@ const Bio = () => {
         <Box width="80%" margin="80px auto">
             <Box mt={10} mb={15}>
                 <Typography variant="h2" align="center" mb={5}>
-                    Delivery Information
-                </Typography>
-                <Paper
-                    elevation={0}
-                    sx={{ padding: "30px", borderRadius: "10px" }}
-                >
-                    <Typography variant="h4" mb={2} align="center">
-                        {/* Executive Chef, Jane Doe */}
-                    </Typography>
-                    <Typography>
-                        {/* Jane Doe is an experienced chef, having worked in some
-                        of the finest restaurants in the world. She is
-                        passionate about creating dishes that are not only
-                        delicious but also visually stunning. */}
-                    </Typography>
-                </Paper>
-            </Box>
-            <Box mt={10} mb={15}>
-                <Typography variant="h2" align="center" mb={5}>
                     DISCLAIMER
                 </Typography>
                 <Paper
@@ -50,6 +31,25 @@ const Bio = () => {
                         that make a difference Please do your own research for
                         your personal needs and always professional advice when
                         using medications.
+                    </Typography>
+                </Paper>
+            </Box>
+            <Box mt={10} mb={15}>
+                <Typography variant="h2" align="center" mb={5}>
+                    Delivery Information
+                </Typography>
+                <Paper
+                    elevation={0}
+                    sx={{ padding: "30px", borderRadius: "10px" }}
+                >
+                    <Typography variant="h4" mb={2} align="center">
+                        {/* Executive Chef, Jane Doe */}
+                    </Typography>
+                    <Typography>
+                        {/* Jane Doe is an experienced chef, having worked in some
+                        of the finest restaurants in the world. She is
+                        passionate about creating dishes that are not only
+                        delicious but also visually stunning. */}
                     </Typography>
                 </Paper>
             </Box>
