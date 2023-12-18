@@ -81,11 +81,11 @@ const ShoppingList = () => {
                         <Item item={item} key={`${item.name}-${item.id}`} />
                     ))}
                 {value === "lotionsnPotions" &&
-                    seasonalSpecialsItems.map((item) => (
+                    lotionsnPotionsItems.map((item) => (
                         <Item item={item} key={`${item.name}-${item.id}`} />
                     ))}
                 {value === "seasonalSpecials" &&
-                    lotionsnPotionsItems.map((item) => (
+                    seasonalSpecialsItems.map((item) => (
                         <Item item={item} key={`${item.name}-${item.id}`} />
                     ))}
                 {value === "mushroomExtracts" &&
