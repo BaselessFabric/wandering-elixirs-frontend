@@ -1,5 +1,5 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
-import chefImage from "../../assets/profile.jpg";
+import chefImage from "../../images/profile.jpg";
 // import foodImage1 from "../../assets/b.jpg";
 // import foodImage2 from "../../assets/a.jpeg";
 

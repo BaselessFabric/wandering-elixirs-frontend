@@ -94,7 +94,7 @@ const NavBar = () => {
 
                     <IconButton
                         onClick={() => navigate("/delivery")}
-                        sx={{ color: "black" }}
+                        sx={{ color: "black", padding: "0px" }}
                     >
                         <InfoIcon />
                     </IconButton>
@@ -106,7 +106,7 @@ const NavBar = () => {
                             "& .MuiBadge-badge": {
                                 right: 5,
                                 top: 5,
-                                padding: "0 4px",
+                                padding: "0 0px",
                                 height: "14px",
                                 minWidth: "13px",
                             },

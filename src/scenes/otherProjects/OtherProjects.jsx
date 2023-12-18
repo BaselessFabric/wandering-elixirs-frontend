@@ -1,7 +1,7 @@
 import { Box, Grid, Typography, Modal } from "@mui/material";
 import { useState } from "react";
-import chefImage from "../../assets/fungalsurv.jpg";
-import foodImage1 from "../../assets/workshop.jpg";
+import chefImage from "../../images/fungalsurv.jpg";
+import foodImage1 from "../../images/workshop.jpg";
 // import foodImage2 from "../../assets/a.jpeg";
 
 // Create a new component for displaying each project
