@@ -42,14 +42,25 @@ const Bio = () => {
                     elevation={0}
                     sx={{ padding: "30px", borderRadius: "10px" }}
                 >
-                    <Typography variant="h4" mb={2} align="center">
-                        {/* Executive Chef, Jane Doe */}
-                    </Typography>
                     <Typography>
-                        {/* Jane Doe is an experienced chef, having worked in some
-                        of the finest restaurants in the world. She is
-                        passionate about creating dishes that are not only
-                        delicious but also visually stunning. */}
+                        <p>1-3 Day processing time Flat Rate</p>
+                        <p>£5.99 UK Royal Mail 1st class</p>
+                        <p>
+                            shipping Subject to weight limits. Very large orders
+                            will be individually calculated
+                        </p>
+                        <p>
+                            Unfortunately I’m not currently able to process
+                            international orders
+                        </p>
+                        <p>
+                            Thank-You for choosing my little business, I’m
+                            working alone and appreciate all the support and
+                            encouragement that I’m on the right path. Follow me
+                            on instagram for updates and more information. I’m
+                            always happy to receive questions and queries.
+                            Thanks again, Rosy Mushroom
+                        </p>
                     </Typography>
                 </Paper>
             </Box>
