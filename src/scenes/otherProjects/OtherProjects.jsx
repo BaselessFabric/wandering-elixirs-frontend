@@ -42,7 +42,7 @@ const OtherProjects = () => {
             title: "Workshops and Talks",
             description: (
                 <>
-                    "I offer workshops at events and nature centres in the UK.
+                    I offer workshops at events and nature centres in the UK.
                     Please get in touch if you’d be interested in hosting or
                     collaborating with one of the following workshops or talks.
                     <br />
@@ -65,7 +65,7 @@ const OtherProjects = () => {
                     factors to identification, harvesting, and intentional
                     journeying in the forest. Includes chai and cake in the
                     break! All participants must be over the age of 16 unless
-                    accompanied by an adult."
+                    accompanied by an adult.
                 </>
             ),
         },
