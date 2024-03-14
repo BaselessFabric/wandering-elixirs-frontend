@@ -27,15 +27,17 @@ const ShoppingList = () => {
         getItems();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const mushroomExtractsItems = items.filter(
+    const mushroomExtractsItems = items ? items.filter(
         (item) => item.attributes.category === "mushroomExtracts"
-    );
-    const seasonalSpecialsItems = items.filter(
+    ) : [];
+    
+    const seasonalSpecialsItems = items ? items.filter(
         (item) => item.attributes.category === "seasonalSpecials"
-    );
-    const lotionsnPotionsItems = items.filter(
-        (item) => item.attributes.category === "lotionsnPotions"
-    );
+    ) : [];
+    
+    // const lotionsnPotionsItems = items ? items.filter(
+    //     (item) => item.attributes.category === "lotionsnPotions"
+    // ) : [];
 
     return (
         <Box width="80%" margin="80px auto" textAlign="center">
@@ -65,7 +67,7 @@ const ShoppingList = () => {
             >
                 <Tab label="ALL" value="all" />
                 <Tab label="SEASONAL SPECIALS" value="seasonalSpecials" />
-                <Tab label="LOTIONS & POTIONS" value="lotionsnPotions" />
+                {/* <Tab label="LOTIONS & POTIONS" value="lotionsnPotions" /> */}
                 <Tab label="MUSHROOM EXTRACTS" value="mushroomExtracts" />
             </Tabs>
             <Box
@@ -80,10 +82,10 @@ const ShoppingList = () => {
                     items.map((item) => (
                         <Item item={item} key={`${item.name}-${item.id}`} />
                     ))}
-                {value === "lotionsnPotions" &&
+                {/* {value === "lotionsnPotions" &&
                     lotionsnPotionsItems.map((item) => (
                         <Item item={item} key={`${item.name}-${item.id}`} />
-                    ))}
+                    ))} */}
                 {value === "seasonalSpecials" &&
                     seasonalSpecialsItems.map((item) => (
                         <Item item={item} key={`${item.name}-${item.id}`} />

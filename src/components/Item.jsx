@@ -111,6 +111,7 @@ const Item = ({ item, width }) => {
                     <Typography variant="subtitle2" color={shades.neutral.dark}>
                         {category
                             .replace(/([A-Z])/g, " $1")
+                            .replace(/&/g, " & ")
                             .replace(/^./, (str) => str.toUpperCase())}
                     </Typography>
                 )}
