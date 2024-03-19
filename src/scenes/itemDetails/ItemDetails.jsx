@@ -67,7 +67,7 @@ const ItemDetails = () => {
       <Box display="flex" flexWrap="wrap" columnGap="40px">
         {/* IMAGES */}
         <Box flex="1 1 40%" mb="40px">
-            {console.log(item)}
+          {console.log(item)}
           <img
             alt={item?.name}
             width="100%"
@@ -97,7 +97,19 @@ const ItemDetails = () => {
 
           <Box m="65px 0 25px 0">
             <Typography variant="h3">{item?.attributes?.name}</Typography>
-            <Typography>£{item?.attributes?.price}</Typography>
+            {/* non discounted code: */}
+            {/* <Typography>£{item?.attributes?.price}</Typography> */}
+
+            {/* discounted code: */}
+            <Typography
+              style={{ textDecoration: "line-through", color: "red" }}
+            >
+              £{item?.attributes?.price}
+            </Typography>
+            <Typography>
+              £{(item?.attributes?.price * 0.7).toFixed(2)} - with 30% off
+              discount code
+            </Typography>
             <Typography
               sx={{ mt: "20px" }}
               dangerouslySetInnerHTML={{
