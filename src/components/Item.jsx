@@ -34,7 +34,7 @@ const Item = ({ item, width }) => {
     isInStock = false;
   }
 
-  const discountedPrice = (price - price * 0.3).toFixed(2);
+  // const discountedPrice = (price - price * 0.3).toFixed(2);
 
   return (
     <Box width={width}>
@@ -113,10 +113,10 @@ const Item = ({ item, width }) => {
         )}
         <Typography>{name}</Typography>
         {/* non discounted code */}
-        {/* <Typography fontWeight="bold">£{price}</Typography> */}
+        <Typography fontWeight="bold">£{price}</Typography>
 
-        {/* discount code */}
-        <Typography
+        {/* discounted code */}
+        {/* <Typography
           fontWeight="bold"
           style={{ textDecoration: "line-through", color: "red" }}
         >
@@ -124,7 +124,8 @@ const Item = ({ item, width }) => {
         </Typography>
         <Typography fontWeight="bold" style={{ marginLeft: 8 }}>
           £{discountedPrice}
-        </Typography>
+        </Typography> */}
+        
       </Box>
     </Box>
   );

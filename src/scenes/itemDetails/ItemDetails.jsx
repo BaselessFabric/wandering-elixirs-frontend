@@ -98,10 +98,10 @@ const ItemDetails = () => {
           <Box m="65px 0 25px 0">
             <Typography variant="h3">{item?.attributes?.name}</Typography>
             {/* non discounted code: */}
-            {/* <Typography>£{item?.attributes?.price}</Typography> */}
+            <Typography>£{item?.attributes?.price}</Typography>
 
             {/* discounted code: */}
-            <Typography
+            {/* <Typography
               style={{ textDecoration: "line-through", color: "red" }}
             >
               £{item?.attributes?.price}
@@ -109,7 +109,8 @@ const ItemDetails = () => {
             <Typography>
               £{(item?.attributes?.price * 0.7).toFixed(2)} - with 30% off
               discount code
-            </Typography>
+            </Typography> */}
+
             <Typography
               sx={{ mt: "20px" }}
               dangerouslySetInnerHTML={{
