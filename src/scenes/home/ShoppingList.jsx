@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography, Tab, Tabs, useMediaQuery } from "@mui/material";
+import { Box, Tab, Tabs, useMediaQuery } from "@mui/material";
 import Item from "../../components/Item";
 import { setItems } from "../../state";
 
@@ -40,15 +40,16 @@ const ShoppingList = () => {
   // ) : [];
 
   return (
-    <Box width="80%" margin="80px auto" textAlign="center">
+    <Box width="80%" margin="20px auto" textAlign="center">
       {/* <Typography variant="h3" margin="0% 31%">
                 I am currently away at Bimble Festival, any purchases made will
                 be processed on
             </Typography> */}
 
-      <Typography variant="h3" margin="0% 31%">
+      {/* <Typography variant="h3" margin="0% 31%">
         Equinox Sale! Use SPRING30 code for 30% off everything
-      </Typography>
+      </Typography> */}
+
       <Tabs
         textColor="primary"
         indicatorColor="primary"
