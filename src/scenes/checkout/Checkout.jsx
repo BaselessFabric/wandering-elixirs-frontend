@@ -1,20 +1,21 @@
 import { useSelector } from "react-redux";
-import { Box, Button, Stepper, Step, StepLabel } from "@mui/material";
+import { Box, Button, Stepper, Step, StepLabel, Typography, useTheme } from "@mui/material";
 import { Formik } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
-import { shades } from "../../theme";
 import Payment from "./Payment";
 import Shipping from "./Shipping";
 import { loadStripe } from "@stripe/stripe-js";
 
+// Use environment variable for Stripe public key
 const stripePromise = loadStripe(
-    "pk_test_51MrQRHKzKPb7wLmLZOzsVcuRI9s3R13RaTtyzLhlkFocuqQqysZTuriaIxIQOkKT3jBTpNuYc6xeUWuu2QZ8S36100OfhZAujo"
+    process.env.REACT_APP_STRIPE_TEST_KEY || "pk_test_51MrQRHKzKPb7wLmLZOzsVcuRI9s3R13RaTtyzLhlkFocuqQqysZTuriaIxIQOkKT3jBTpNuYc6xeUWuu2QZ8S36100OfhZAujo"
 );
 
 const Checkout = () => {
     const [activeStep, setActiveStep] = useState(0);
     const cart = useSelector((state) => state.cart.cart);
+    const theme = useTheme();
     const isFirstStep = activeStep === 0;
     const isSecondStep = activeStep === 1;
 
@@ -63,7 +64,12 @@ const Checkout = () => {
 
     return (
         <Box width="80%" m="100px auto">
-            <Stepper activeStep={activeStep} sx={{ m: "20px 0" }}>
+            <Typography variant="h2" align="center" mb={4}>Checkout</Typography>
+            <Stepper activeStep={activeStep} sx={{ 
+                m: "20px 0",
+                "& .MuiStepIcon-root.Mui-active": { color: theme.palette.primary.main },
+                "& .MuiStepIcon-root.Mui-completed": { color: theme.palette.primary.main },
+             }}>
                 <Step>
                     <StepLabel>Billing</StepLabel>
                 </Step>
@@ -111,19 +117,19 @@ const Checkout = () => {
                                 display="flex"
                                 justifyContent="space-between"
                                 gap="50px"
+                                mt="30px"
                             >
                                 {!isFirstStep && (
                                     <Button
                                         fullWidth
-                                        color="primary"
                                         variant="contained"
                                         sx={{
-                                            backgroundColor:
-                                                shades.primary[200],
+                                            backgroundColor: theme.palette.neutral[400],
                                             boxShadow: "none",
                                             color: "white",
-                                            borderRadius: 0,
+                                            borderRadius: "4px",
                                             padding: "15px 40px",
+                                            '&:hover': { backgroundColor: theme.palette.neutral[600] }
                                         }}
                                         onClick={() =>
                                             setActiveStep(activeStep - 1)
@@ -138,11 +144,12 @@ const Checkout = () => {
                                     color="primary"
                                     variant="contained"
                                     sx={{
-                                        backgroundColor: shades.primary[400],
+                                        backgroundColor: theme.palette.primary.main,
                                         boxShadow: "none",
                                         color: "white",
-                                        borderRadius: 0,
+                                        borderRadius: "4px",
                                         padding: "15px 40px",
+                                        '&:hover': { backgroundColor: theme.palette.primary[700] }
                                     }}
                                 >
                                     {!isSecondStep ? "Next" : "Place Order"}

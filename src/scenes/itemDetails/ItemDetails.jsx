@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { IconButton, Box, Typography, Button } from "@mui/material";
-// import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import { IconButton, Box, Typography, Button, Grid, useTheme } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { shades } from "../../theme";
 import { addToCart } from "../../state";
 import { useParams } from "react-router-dom";
 import Item from "../../components/Item";
@@ -17,14 +15,10 @@ function sanitizeHtml(html) {
 const ItemDetails = () => {
   const dispatch = useDispatch();
   const { itemId } = useParams();
-  // const [value, setValue] = useState("description");
   const [count, setCount] = useState(1);
   const [item, setItem] = useState(null);
   const [items, setItems] = useState([]);
-
-  // const handleChange = (event, newValue) => {
-  //     setValue(newValue);
-  // };
+  const theme = useTheme();
 
   async function getItem() {
     const item = await fetch(
@@ -34,8 +28,6 @@ const ItemDetails = () => {
     const itemJson = await item.json();
     setItem(itemJson.data);
   }
-
-  // console.log("ItemID: ", itemId);
 
   async function getItems() {
     const items = await fetch(
@@ -49,170 +41,141 @@ const ItemDetails = () => {
   useEffect(() => {
     getItem();
     getItems();
+    window.scrollTo(0, 0); // Scroll to top on new item view
   }, [itemId]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  let isInStock;
-
-  if (item?.attributes?.stockLevel > 0) {
-    isInStock = true;
-  } else {
-    isInStock = false;
-  }
-
-  // console.log("stockLevel: ", item?.attributes?.stockLevel);
-  // console.log("isInStock: ", isInStock);
+  const isInStock = item?.attributes?.stockLevel > 0;
+  const mainImageUrl = item?.attributes?.image?.data?.attributes?.formats?.medium?.url;
+  const secondaryImageUrl = item?.attributes?.image2?.data?.attributes?.formats?.medium?.url;
 
   return (
     <Box width="80%" m="80px auto">
-      <Box display="flex" flexWrap="wrap" columnGap="40px">
-        {/* IMAGES */}
-        <Box flex="1 1 40%" mb="40px">
-          {console.log(item)}
-          <img
-            alt={item?.name}
-            width="100%"
-            height="100%"
-            src={
-              item?.attributes?.image?.data?.attributes?.formats?.medium?.url
-            }
-            style={{ objectFit: "contain" }}
-          />
-          {/* <img
-            alt={item?.name}
-            width="100%"
-            height="100%"
-            src={
-              item?.attributes?.image2?.data?.attributes?.formats?.medium?.url
-            }
-            style={{ objectFit: "contain" }}
-          /> */}
-        </Box>
+      <Grid container spacing={5}>
+        {/* IMAGE SECTION */}
+        <Grid item xs={12} md={6}>
+          <Box sx={{ border: `1px solid ${theme.palette.neutral[300]}`, borderRadius: '8px', overflow: 'hidden', p: 1 }}>
+            <img
+              alt={item?.name}
+              width="100%"
+              height="auto"
+              src={mainImageUrl}
+              style={{ objectFit: "contain", borderRadius: '8px' }}
+            />
+          </Box>
+          {secondaryImageUrl && (
+            <Box sx={{ border: `1px solid ${theme.palette.neutral[300]}`, borderRadius: '8px', overflow: 'hidden', p: 1, mt: 2 }}>
+                <img
+                  alt={`${item?.name}-2`}
+                  width="100%"
+                  height="auto"
+                  src={secondaryImageUrl}
+                  style={{ objectFit: "contain", borderRadius: '8px' }}
+                />
+            </Box>
+          )}
+        </Grid>
 
-        {/* ACTIONS */}
-        <Box flex="1 1 50%" mb="40px">
-          {/* <Box display="flex" justifyContent="space-between">
-                        <Box>Home/Item</Box>
-                        <Box>Prev Next</Box>
-                    </Box> */}
-
-          <Box m="65px 0 25px 0">
-            <Typography variant="h3">{item?.attributes?.name}</Typography>
-            {/* non discounted code: */}
-            <Typography>£{item?.attributes?.price}</Typography>
-
-            {/* discounted code: */}
-            {/* <Typography
-              style={{ textDecoration: "line-through", color: "red" }}
-            >
+        {/* INFO & ACTIONS SECTION */}
+        <Grid item xs={12} md={6}>
+          <Box display="flex" flexDirection="column" height="100%">
+            <Typography variant="h2" fontWeight="bold" mb={2}>
+              {item?.attributes?.name}
+            </Typography>
+            <Typography variant="h3" color={theme.palette.primary.main} mb={3}>
               £{item?.attributes?.price}
             </Typography>
-            <Typography>
-              £{(item?.attributes?.price * 0.7).toFixed(2)} - with 30% off
-              discount code
-            </Typography> */}
-
-            <Typography
-              sx={{ mt: "20px" }}
+            <Box 
+              sx={{ 
+                mt: "20px", 
+                mb: "30px", 
+                lineHeight: 1.7, 
+                color: theme.palette.neutral[800],
+                '& p': { margin: 0 } 
+              }}
               dangerouslySetInnerHTML={{
                 __html: sanitizeHtml(item?.attributes?.longDescription),
               }}
-            ></Typography>
-          </Box>
+            />
 
-          {/* COUNT AND BUTTON */}
-          <Box display="flex" alignItems="centre" minHeight="50px">
-            <Box
-              style={{ display: isInStock ? "flex" : "none" }}
-              alignItems="center"
-              border={`1.5px solid ${shades.neutral[300]}`}
-              mr="20px"
-              p="2px 5px"
-            >
-              <IconButton onClick={() => setCount(Math.max(count - 1, 0))}>
-                <RemoveIcon />
-              </IconButton>
-              <Typography sx={{ p: "0 5px" }}>{count}</Typography>
-              <IconButton
-                onClick={() =>
-                  setCount(Math.min(count + 1, item?.attributes?.stockLevel))
-                }
-              >
-                <AddIcon />
-              </IconButton>
+            {/* COUNT AND BUTTON */}
+            <Box display="flex" alignItems="center" minHeight="50px" mt="auto">
+              {isInStock ? (
+                <>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    border={`1.5px solid ${theme.palette.neutral[500]}`}
+                    borderRadius="4px"
+                    mr="20px"
+                  >
+                    <IconButton onClick={() => setCount(Math.max(count - 1, 1))}>
+                      <RemoveIcon />
+                    </IconButton>
+                    <Typography sx={{ p: "0 10px", userSelect: 'none' }}>{count}</Typography>
+                    <IconButton
+                      onClick={() =>
+                        setCount(Math.min(count + 1, item?.attributes?.stockLevel))
+                      }
+                    >
+                      <AddIcon />
+                    </IconButton>
+                  </Box>
+                  <Button
+                    sx={{
+                      backgroundColor: theme.palette.primary.main,
+                      color: "white",
+                      borderRadius: "4px",
+                      minWidth: "150px",
+                      padding: "15px 40px",
+                      fontSize: '1rem',
+                      '&:hover': { backgroundColor: theme.palette.primary[700] }
+                    }}
+                    onClick={() => dispatch(addToCart({ item: { ...item, count } }))}
+                  >
+                    ADD TO CART
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  disabled
+                  sx={{
+                    backgroundColor: theme.palette.neutral[300],
+                    color: theme.palette.neutral[700],
+                    borderRadius: "4px",
+                    minWidth: "150px",
+                    padding: "15px 40px",
+                    fontSize: '1rem',
+                  }}
+                >
+                  OUT OF STOCK
+                </Button>
+              )}
             </Box>
-            <Button
-              style={{ display: isInStock ? "block" : "none" }}
-              sx={{
-                backgroundColor: "#222222",
-                color: "white",
-                borderRadius: 0,
-                minWidth: "150px",
-                padding: "10px 40px",
-              }}
-              onClick={() => dispatch(addToCart({ item: { ...item, count } }))}
-            >
-              ADD TO CART
-            </Button>
-            <Box
-              style={{ display: !isInStock ? "block" : "none" }}
-              sx={{
-                backgroundColor: "#222222",
-                color: "white",
-                borderRadius: 0,
-                minWidth: "150px",
-                padding: "10px 40px",
-              }}
-            >
-              OUT OF STOCK
+
+            <Box mt={3}>
+              <Typography variant="body2" color={theme.palette.neutral[600]}>
+                In Stock: {item?.attributes?.stockLevel || 0}
+              </Typography>
             </Box>
           </Box>
-
-          <Box>
-            {/* <Box m="20px 0 5px 0" display="flex">
-                            <FavoriteBorderOutlinedIcon />
-
-                            <Typography sx={{ ml: "5px" }}>
-                                ADD TO WISHLIST
-                            </Typography>
-                        </Box> */}
-            <Typography>
-              Amount Left In Stock: {item?.attributes?.stockLevel}
-            </Typography>
-            {/* <Typography>
-                            CATEGORIES: {item?.attributes?.category}
-                        </Typography> */}
-          </Box>
-        </Box>
-      </Box>
-
-      {/* INFORMATION */}
-      {/* <Box m="20px 0">
-                <Tabs value={value} onChange={handleChange}>
-                    <Tab label="DESCRIPTION" value="description" />
-                    <Tab label="REVIEWS" value="reviews" />
-                </Tabs>
-            </Box>
-            <Box display="flex" flexWrap="wrap" gap="15px">
-                {value === "description" && (
-                    <div>{item?.attributes?.longDescription}</div>
-                )}
-                {value === "reviews" && <div>reviews</div>}
-            </Box> */}
+        </Grid>
+      </Grid>
 
       {/* RELATED ITEMS */}
-      <Box mt="50px" width="100%">
-        <Typography variant="h3" fontWeight="bold">
+      <Box mt="80px" width="100%">
+        <Typography variant="h2" fontWeight="bold" textAlign="center">
           Related Products
         </Typography>
         <Box
           mt="20px"
-          display="flex"
-          flexWrap="wrap"
-          columnGap="1.33%"
-          justifyContent="space-between"
+          display="grid"
+          gridTemplateColumns="repeat(auto-fit, minmax(280px, 1fr))"
+          justifyContent="center"
+          rowGap="30px"
+          columnGap="20px"
         >
-          {items.slice(0, 4).map((item, i) => (
-            <Item key={`${item.name}-${i}`} item={item} />
+          {items.slice(0, 4).map((relatedItem, i) => (
+            <Item key={`${relatedItem.name}-${i}`} item={relatedItem} />
           ))}
         </Box>
       </Box>
@@ -221,3 +184,4 @@ const ItemDetails = () => {
 };
 
 export default ItemDetails;
+

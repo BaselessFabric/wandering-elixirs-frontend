@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { IconButton, Box, Typography, Button } from "@mui/material";
+import { IconButton, Box, Typography, Button, useTheme } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { shades } from "../theme";
 import { addToCart } from "../state";
 import { useNavigate } from "react-router-dom";
 
@@ -12,120 +11,140 @@ const Item = ({ item, width }) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
-  // const {
-  //     palette: { neutral },
-  // } = useTheme();
+  const theme = useTheme(); // Access the theme
+
   const { category, price, name, image, stockLevel } = item.attributes;
-  const {
-    data: {
-      attributes: {
-        formats: {
-          medium: { url },
-        },
-      },
-    },
-  } = image;
+  
+  // Safely access the image url using optional chaining to prevent crashes
+  const url = image?.data?.attributes?.formats?.medium?.url;
 
-  let isInStock;
-
-  if (stockLevel > 0) {
-    isInStock = true;
-  } else {
-    isInStock = false;
-  }
-
-  // const discountedPrice = (price - price * 0.3).toFixed(2);
+  const isInStock = stockLevel > 0;
 
   return (
-    <Box width={width}>
+    <Box
+      width={width}
+      onClick={() => navigate(`/item/${item.id}`)}
+      sx={{
+        cursor: 'pointer',
+        border: `1px solid ${theme.palette.neutral[300]}`,
+        borderRadius: '8px',
+        overflow: 'hidden',
+        boxShadow: '0px 2px 4px rgba(0,0,0,0.05)',
+        transition: 'box-shadow 0.3s ease-in-out',
+        '&:hover': {
+            boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
+        }
+    }}>
       <Box
         position="relative"
         onMouseOver={() => setIsHovered(true)}
         onMouseOut={() => setIsHovered(false)}
+        sx={{
+            cursor: "pointer",
+            height: '300px', // Fixed height for image container
+            overflow: 'hidden',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: theme.palette.neutral[200], // Add a fallback background
+        }}
       >
-        <img
-          alt={item.name}
-          width="300px"
-          height="400px"
-          src={url}
-          onClick={() => navigate(`/item/${item.id}`)}
-          style={{ cursor: "pointer" }}
-        />
+        {url ? (
+            <img
+              alt={item.name}
+              src={url}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover", // Ensure image covers the area
+                transition: 'transform 0.3s ease-in-out',
+                transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+              }}
+            />
+        ) : (
+            // Fallback content if no image is available
+            <Typography variant="body2" color={theme.palette.neutral[600]}>
+                No Image
+            </Typography>
+        )}
         <Box
-          display={isHovered ? "block" : "none"}
           position="absolute"
-          bottom="10%"
+          bottom="0"
           left="0"
           width="100%"
-          padding="0 5%"
+          padding="10px"
+          sx={{
+            backgroundColor: 'rgba(255,255,255,0.8)',
+            transform: isHovered ? 'translateY(0)' : 'translateY(100%)',
+            opacity: isHovered ? 1 : 0,
+            transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            boxSizing: 'border-box',
+          }}
         >
-          <Box display="flex" justifyContent="space-between">
-            {/* AMOUNT */}
+          {/* AMOUNT */}
+          {isInStock ? (
             <Box
-              style={{ display: isInStock ? "flex" : "none" }}
+              display="flex"
               alignItems="center"
-              backgroundColor={shades.neutral[100]}
-              borderRadius="3px"
+              backgroundColor={theme.palette.neutral[200]}
+              borderRadius="4px"
             >
-              <IconButton onClick={() => setCount(Math.max(count - 1, 1))}>
-                <RemoveIcon />
+              <IconButton onClick={(e) => { e.stopPropagation(); setCount(Math.max(count - 1, 1)); }}>
+                <RemoveIcon sx={{ color: theme.palette.neutral[700] }} />
               </IconButton>
-              <Typography color={shades.primary[300]}>{count}</Typography>
-              <IconButton onClick={() => setCount(count + 1)}>
-                <AddIcon />
+              <Typography color={theme.palette.neutral[900]}>{count}</Typography>
+              <IconButton onClick={(e) => { e.stopPropagation(); setCount(count + 1); }}>
+                <AddIcon sx={{ color: theme.palette.neutral[700] }} />
               </IconButton>
             </Box>
+          ) : (
+            <Typography variant="body2" color={theme.palette.secondary.main} fontWeight="bold">
+                Out of Stock
+            </Typography>
+          )}
 
-            {/* BUTTON */}
+          {/* BUTTON */}
+          {isInStock && (
             <Button
-              style={{ display: isInStock ? "" : "none" }}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent navigating to item details
                 dispatch(addToCart({ item: { ...item, count } }));
               }}
               sx={{
-                backgroundColor: shades.primary[300],
+                backgroundColor: theme.palette.primary.main,
                 color: "white",
+                borderRadius: "4px",
+                padding: "8px 15px",
+                fontSize: "0.8rem",
+                '&:hover': {
+                    backgroundColor: theme.palette.primary[700],
+                },
               }}
             >
               Add to Cart
             </Button>
-            <Button
-              style={{ display: !isInStock ? "" : "none" }}
-              sx={{
-                backgroundColor: shades.primary[300],
-                color: "white",
-              }}
-            >
-              Out of Stock
-            </Button>
-          </Box>
+          )}
         </Box>
       </Box>
 
-      <Box mt="3px">
+      <Box mt="15px" px="15px" pb="15px">
         {category && (
-          <Typography variant="subtitle2" color={shades.neutral.dark}>
+          <Typography variant="body2" color={theme.palette.neutral[600]} mb="5px">
             {category
               .replace(/([A-Z])/g, " $1")
               .replace(/&/g, " & ")
               .replace(/^./, (str) => str.toUpperCase())}
           </Typography>
         )}
-        <Typography>{name}</Typography>
-        {/* non discounted code */}
-        <Typography fontWeight="bold">£{price}</Typography>
-
-        {/* discounted code */}
-        {/* <Typography
-          fontWeight="bold"
-          style={{ textDecoration: "line-through", color: "red" }}
-        >
-          £{price}
+        <Typography variant="h6" fontWeight="bold" color={theme.palette.neutral[900]}>
+            {name}
         </Typography>
-        <Typography fontWeight="bold" style={{ marginLeft: 8 }}>
-          £{discountedPrice}
-        </Typography> */}
-        
+        <Typography variant="body1" fontWeight="bold" color={theme.palette.primary.main} mt="5px">
+            £{price}
+        </Typography>
       </Box>
     </Box>
   );

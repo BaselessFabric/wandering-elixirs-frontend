@@ -1,11 +1,4 @@
-import { Box, IconButton, useMediaQuery } from "@mui/material";
-// import { Typography } from "@mui/material";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-// import { shades } from "../../theme";
-
+import { Box, Typography, Button, useMediaQuery, useTheme } from "@mui/material";
 // imports all images from assets folder
 const importAll = (r) => {
     return r.keys().reduce((acc, item) => {
@@ -18,91 +11,80 @@ export const heroTextureImports = importAll(
     require.context("../../assets", false, /\.(png|jpe?g|svg)$/)
 );
 
-const MainCarousel = () => {
+const MainCarousel = ({ onShopNowClick }) => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
+    const theme = useTheme(); // Access the new theme
+
+    // Choose one image for the hero section, e.g., 'c1.jpg'
+    const heroImage = heroTextureImports['c1.jpg'] || Object.values(heroTextureImports)[0];
+
     return (
-        <Carousel
-            infiniteLoop={true}
-            showThumbs={false}
-            showIndicators={false}
-            showStatus={false}
-            autoPlay={true}
-            interval={5000}
-            renderArrowPrev={(onClickHandler, hasPrev, label) => (
-                <IconButton
-                    onClick={onClickHandler}
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "0",
-                        color: "white",
-                        padding: "5px",
-                        zIndex: "10",
-                    }}
-                >
-                    <NavigateBeforeIcon sx={{ fontSize: 40 }} />
-                </IconButton>
-            )}
-            renderArrowNext={(onClickHandler, hasNext, label) => (
-                <IconButton
-                    onClick={onClickHandler}
-                    sx={{
-                        position: "absolute",
-                        top: "50%",
-                        right: "0",
-                        color: "white",
-                        padding: "5px",
-                        zIndex: "10",
-                    }}
-                >
-                    <NavigateNextIcon sx={{ fontSize: 40 }} />
-                </IconButton>
-            )}
+        <Box
+            sx={{
+                position: 'relative',
+                height: '80vh', // Make it prominent
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                backgroundImage: `url(${heroImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+            }}
         >
-            {Object.values(heroTextureImports).map((texture, index) => (
-                <Box key={`carousel-image-${index}`}>
-                    <img
-                        src={texture}
-                        alt={`carousel-${index}`}
-                        height={
-                            isNonMobile
-                                ? (window.innerHeight / 4) * 3
-                                : (window.innerHeight / 3) * 2
-                        }
-                        style={{
-                            width: "100%",
-                            objectFit: "cover",
-                            backgroundAttachment: "fixed",
-                        }}
-                    />
-                    {/* <Box
-                        color="white"
-                        padding="20px"
-                        borderRadius="1px"
-                        textAlign="left"
-                        backgroundColor="rgb(0,0,0,0.4)"
-                        position="absolute"
-                        top="46%"
-                        left={isNonMobile ? "10%" : "0"}
-                        right={isNonMobile ? undefined : "0"}
-                        margin={isNonMobile ? undefined : "0 auto"}
-                        maxWidth={isNonMobile ? undefined : "240px"}
-                    >
-                        <Typography color={shades.secondary[200]}>
-                            -- NEW ITEMS
-                        </Typography>
-                        <Typography variant="h1">Mushroom Extracts</Typography>
-                        <Typography
-                            fontWeight="bold"
-                            color={shades.secondary[300]}
-                            sx={{ textDecoration: "underline" }}
-                        >
-                            Discover More
-                        </Typography>
-                    </Box> */}
-                </Box>
-            ))}
-        </Carousel>
+            {/* Overlay for text readability */}
+            <Box
+                sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'rgba(0,0,0,0.4)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    padding: '20px',
+                }}
+            >
+                <Typography
+                    variant={isNonMobile ? "h1" : "h2"}
+                    color="white"
+                    fontWeight="bold"
+                    mb="10px"
+                    sx={{ textShadow: '2px 2px 4px rgba(0,0,0,0.6)' }}
+                >
+                    Wandering Elixirs
+                </Typography>
+                <Typography
+                    variant={isNonMobile ? "h3" : "h4"}
+                    color="white"
+                    mb="30px"
+                    sx={{ textShadow: '1px 1px 3px rgba(0,0,0,0.5)' }}
+                >
+                    Nature's Essence, Bottled
+                </Typography>
+                <Button
+                    variant="contained"
+                    sx={{
+                        backgroundColor: theme.palette.primary.main,
+                        color: 'white',
+                        padding: '15px 40px',
+                        fontSize: '1.2rem',
+                        borderRadius: '5px',
+                        '&:hover': {
+                            backgroundColor: theme.palette.primary[700],
+                        },
+                    }}
+                    onClick={onShopNowClick}
+                >
+                    Shop Now
+                </Button>
+            </Box>
+        </Box>
     );
 };
 

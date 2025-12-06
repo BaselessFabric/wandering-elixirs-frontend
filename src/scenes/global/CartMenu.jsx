@@ -1,17 +1,15 @@
-import { Box, Button, Divider, IconButton, Typography } from "@mui/material";
+import { Box, Button, Divider, IconButton, Typography, useTheme } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import styled from "@emotion/styled";
-import { shades } from "../../theme";
 import {
     increaseCount,
     decreaseCount,
     removeFromCart,
     setIsCartOpen,
 } from "../../state";
-// import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 
 const FlexBox = styled(Box)`
@@ -20,15 +18,16 @@ const FlexBox = styled(Box)`
     align-items: center;
 `;
 
+// Using environment variable for Stripe public key
 const stripePromise = loadStripe(
-    "pk_live_51MrQRHKzKPb7wLmLJVz21u5NeEIDBvw0UyuCsl6hIOWAJeB0teoHfBPZIbnj7nlugmRJqGWYfXOShF6VxhnwaUuF009anJYUMM"
+    process.env.REACT_APP_STRIPE_LIVE_KEY || "pk_live_51MrQRHKzKPb7wLmLJVz21u5NeEIDBvw0UyuCsl6hIOWAJeB0teoHfBPZIbnj7nlugmRJqGWYfXOShF6VxhnwaUuF009anJYUMM"
 );
 
 const CartMenu = () => {
-    // const navigate = useNavigate();
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart.cart);
     const isCartOpen = useSelector((state) => state.cart.isCartOpen);
+    const theme = useTheme(); // Access the new theme
 
     async function makePayment() {
         const stripe = await stripePromise;
@@ -68,6 +67,7 @@ const CartMenu = () => {
             left="0"
             top="0"
             overflow="auto"
+            onClick={() => dispatch(setIsCartOpen({}))} // Close on overlay click
         >
             {/* MODAL */}
             <Box
@@ -76,15 +76,16 @@ const CartMenu = () => {
                 bottom="0"
                 width="max(400px, 30%)"
                 height="100%"
-                backgroundColor="white"
+                backgroundColor={theme.palette.neutral.light} // Use new light neutral
+                onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
             >
                 <Box padding="30px" overflow="auto" height="100%">
                     {/* HEADER */}
                     <FlexBox mb="15px">
-                        <Typography variant="h3">
+                        <Typography variant="h3" color={theme.palette.neutral[900]}>
                             SHOPPING BAG ({cart.length})
                         </Typography>
-                        <IconButton onClick={() => dispatch(setIsCartOpen({}))}>
+                        <IconButton onClick={() => dispatch(setIsCartOpen({}))} sx={{ color: theme.palette.neutral[700] }}>
                             <CloseIcon />
                         </IconButton>
                     </FlexBox>
@@ -104,12 +105,13 @@ const CartMenu = () => {
                                                     ?.attributes?.formats
                                                     ?.medium?.url
                                             }
+                                            style={{ objectFit: "cover" }}
                                         />
                                     </Box>
-                                    <Box flex="1 1 60%">
+                                    <Box flex="1 1 60%" pl="20px"> {/* Added left padding */}
                                         {/* ITEM NAME */}
                                         <FlexBox mb="5px">
-                                            <Typography fontWeight="bold">
+                                            <Typography fontWeight="bold" color={theme.palette.neutral[900]}>
                                                 {item.attributes.name}
                                             </Typography>
                                             <IconButton
@@ -120,20 +122,22 @@ const CartMenu = () => {
                                                         })
                                                     )
                                                 }
+                                                sx={{ color: theme.palette.neutral[700] }}
                                             >
                                                 <CloseIcon />
                                             </IconButton>
                                         </FlexBox>
-                                        <Typography>
+                                        <Typography variant="body2" color={theme.palette.neutral[700]}>
                                             {item.attributes.shortDescription}
                                         </Typography>
 
                                         {/* AMOUNT */}
-                                        <FlexBox mg="15px 0">
+                                        <FlexBox mt="15px"> {/* Changed mg to mt */}
                                             <Box
                                                 display="flex"
                                                 alignItems="center"
-                                                border={`1.5px solid ${shades.neutral[500]}`}
+                                                border={`1.5px solid ${theme.palette.neutral[500]}`}
+                                                borderRadius="4px"
                                             >
                                                 <IconButton
                                                     onClick={() =>
@@ -143,10 +147,11 @@ const CartMenu = () => {
                                                             })
                                                         )
                                                     }
+                                                    sx={{ color: theme.palette.neutral[700] }}
                                                 >
                                                     <RemoveIcon />
                                                 </IconButton>
-                                                <Typography>
+                                                <Typography color={theme.palette.neutral[900]}>
                                                     {item.count}
                                                 </Typography>
                                                 <IconButton
@@ -157,18 +162,19 @@ const CartMenu = () => {
                                                             })
                                                         )
                                                     }
+                                                    sx={{ color: theme.palette.neutral[700] }}
                                                 >
                                                     <AddIcon />
                                                 </IconButton>
                                             </Box>
                                             {/* PRICE */}
-                                            <Typography fontWeight="bold ">
+                                            <Typography fontWeight="bold" color={theme.palette.primary.main}>
                                                 £{item.attributes.price}
                                             </Typography>
                                         </FlexBox>
                                     </Box>
                                 </FlexBox>
-                                <Divider />
+                                <Divider sx={{ borderColor: theme.palette.neutral[300] }}/>
                             </Box>
                         ))}
                     </Box>
@@ -176,22 +182,25 @@ const CartMenu = () => {
                     {/* ACTIONS */}
                     <Box m="20px 0">
                         <FlexBox m="20px 0">
-                            <Typography fontWeight="bold">SUBTOTAL</Typography>
-                            <Typography fontWeight="bold">
+                            <Typography fontWeight="bold" color={theme.palette.neutral[900]}>SUBTOTAL</Typography>
+                            <Typography fontWeight="bold" color={theme.palette.primary.main}>
                                 £{totalPrice}
                             </Typography>
                         </FlexBox>
                         <Button
                             sx={{
-                                backgroundColor: shades.primary[400],
+                                backgroundColor: theme.palette.primary.main,
                                 color: "white",
-                                borderRadius: 0,
+                                borderRadius: "4px", // Subtle rounded corners
                                 minWidth: "100%",
-                                padding: "20px 40px",
+                                padding: "15px 40px", // Reduced vertical padding slightly
                                 margin: "20px 0",
+                                '&:hover': {
+                                    backgroundColor: theme.palette.primary[700],
+                                },
                             }}
                             onClick={() => {
-                                // navigate("/checkout");
+                                // navigate("/checkout"); // Removed commented out navigate
                                 makePayment();
                                 dispatch(setIsCartOpen());
                             }}
