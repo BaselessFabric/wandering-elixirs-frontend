@@ -9,10 +9,12 @@ steps:
   - name: 'node'
     entrypoint: 'npm'
     args: ['run', 'build']
+    env:
+      - 'REACT_APP_API_URL=${_BACKEND_API_URL}'
 
   # Deploy to Firebase Hosting
   - name: us-docker.pkg.dev/firebase-cli/us/firebase # Use the recommended Firebase builder
-    args: ['deploy', '--project=$PROJECT_ID', '--only=hosting']
+    args: ['deploy', '--project', '$PROJECT_ID', '--only=hosting']
 
 options:
   logging: CLOUD_LOGGING_ONLY # Explicitly set logging to Cloud Logging only
