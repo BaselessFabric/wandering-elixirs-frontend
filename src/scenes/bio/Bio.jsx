@@ -11,7 +11,7 @@ const Bio = () => {
         "Mushrooms play a vital role in our eco-system and in our bodies, research and historical use has shown a range of beneficial and preventative compounds within many species common to the UK. Shown to have positive effects on the immune system as an immunomodulator, and containing compounds such as flavonoids, terpenes, and anti-oxidants, they are able to target free radicals in the body and improve and aid inflammation, digestion, stress, anxiety and hormonal difficulties.",
         "Thank-you for visiting my website. If you’d like to know more about me and my inquiries into the fungal realm, please get in touch. I love to collaborate with researchers, artists, and wild- crafters. I’m available to offer surveys and workshops, please take a look at my other projects.",
         "Love and thanks, Rosy Mushroom",
-        "rosy@wanderingelixirs.com"
+        "wanderingelixirs@gmail.com"
     ];
 
     return (
@@ -30,7 +30,7 @@ const Bio = () => {
                         <Typography textAlign="center" mt={3} variant="h6">
                             Contact me at:
                             <Link
-                                href="mailto:Rosy@WanderingElixirs.com"
+                                href="mailto:wanderingelixirs@gmail.com"
                                 underline="hover"
                                 sx={{ 
                                     display: 'block', 
@@ -39,7 +39,7 @@ const Bio = () => {
                                     fontWeight: 'bold' 
                                 }}
                             >
-                                Rosy@WanderingElixirs.com
+                                wanderingelixirs@gmail.com
                             </Link>
                         </Typography>
                     </Box>
