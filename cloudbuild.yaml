@@ -1,0 +1,15 @@
+# cloudbuild.yaml
+steps:
+  # Install Node.js dependencies
+  - name: 'node'
+    entrypoint: 'npm'
+    args: ['install']
+
+  # Build the React frontend for production
+  - name: 'node'
+    entrypoint: 'npm'
+    args: ['run', 'build']
+
+  # Deploy to Firebase Hosting
+  - name: 'gcr.io/cloud-builders/firebase'
+    args: ['deploy', '--project', '$PROJECT_ID', '--only', 'hosting']
