@@ -11,8 +11,8 @@ steps:
     args: ['run', 'build']
 
   # Deploy to Firebase Hosting
-  - name: 'gcr.io/cloud-builders/firebase' # Use the recommended Firebase builder
-    args: ['deploy', '--project', '$PROJECT_ID', '--only', 'hosting']
+  - name: us-docker.pkg.dev/firebase-cli/us/firebase # Use the recommended Firebase builder
+    args: ['deploy', '--project=$PROJECT_ID', '--only=hosting']
 
 options:
   logging: CLOUD_LOGGING_ONLY # Explicitly set logging to Cloud Logging only
